@@ -1,0 +1,18 @@
+---
+/** Conversion banner. Copy differs per page, so it's all props. */
+interface Props {
+  heading: string;
+  body: string;
+  cta: string;
+  href: string;
+}
+const { heading, body, cta, href } = Astro.props;
+---
+
+<section class="section cta-banner">
+  <div class="wrap">
+    <h2>{heading}</h2>
+    <p>{body}</p>
+    <a class="btn" href={href}>{cta}</a>
+  </div>
+</section>

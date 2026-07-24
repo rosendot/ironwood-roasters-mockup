@@ -1,0 +1,263 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import Pillars from "../components/Pillars.astro";
+import { partners } from "../data/wholesale-partners";
+
+const pillars = [
+  {
+    num: "I",
+    title: "Roasted-to-order weekly",
+    body: "We roast your order the week it ships, so what lands on your bar is days off the drum — not last quarter's stock.",
+  },
+  {
+    num: "II",
+    title: "Barista training + equipment help",
+    body: "We'll dial in your espresso, train your staff, and help you spec or troubleshoot a grinder and machine that actually work.",
+  },
+  {
+    num: "III",
+    title: "A rep who actually answers",
+    body: "One person who knows your account, picks up the phone, and shows up. No ticket queue, no rotating reps.",
+  },
+];
+
+const programs = [
+  {
+    slot: "Café program: espresso machine + bags of beans on a back bar",
+    icon: "01",
+    title: "Café Program",
+    body: "Weekly delivery of your house espresso and filter, plus barista training and dial-in support. Built for high-volume bars.",
+  },
+  {
+    slot: "Restaurant program: drip coffee at a dining table setting",
+    icon: "02",
+    title: "Restaurant Program",
+    body: "Drip and espresso in smaller volumes, delivered on your schedule. The right cup to end a meal, without the waste.",
+  },
+  {
+    slot: "Office coffee: bags and a brewer in a bright office kitchen",
+    icon: "03",
+    title: "Office Coffee",
+    body: "Bags plus the equipment to brew them well, restocked before you run out. Good coffee your team will actually drink.",
+  },
+];
+
+const faqs = [
+  {
+    q: "What's the minimum order?",
+    a: "Five pounds a week to start. Most cafés land between 20 and 80 pounds once they're rolling, but we'd rather start you small and grow than oversell you on day one.",
+  },
+  {
+    q: "How fast is delivery?",
+    a: "We roast to order and deliver weekly. In-town Asheville accounts get free delivery on a set day; regional accounts ship within 48 hours of roasting so it arrives fresh.",
+  },
+  {
+    q: "Do you provide equipment?",
+    a: "We'll help you spec, source, and set up grinders and machines, and we can place loaner equipment for qualifying volume accounts. If yours needs work, we know good techs in town.",
+  },
+  {
+    q: "Is there a contract?",
+    a: "No long-term contract. Wholesale is month-to-month — if it isn't working for you, you're not locked in. We'd rather earn the next order than trap you in this one.",
+  },
+  {
+    q: "Do you train our staff?",
+    a: "Yes, and it's included. We'll come dial in your espresso, train your baristas on grind and technique, and come back when you hire someone new or change a bean.",
+  },
+  {
+    q: "Can we private-label?",
+    a: "For established accounts at volume, yes — we can roast a custom blend and package it under your name. Let's talk about what you're after and what makes sense.",
+  },
+];
+
+// The marquee needs the list twice so the -50% keyframe loops seamlessly.
+const marquee = [...partners, ...partners];
+---
+
+<Layout title="Wholesale — Coffee for Cafés &amp; Restaurants · Ironwood Roasters">
+  <!-- ===================== BREADCRUMBS ===================== -->
+  <div class="crumb-strip">
+    <nav class="crumbs wrap" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <span class="here">Wholesale</span>
+    </nav>
+  </div>
+
+  <!-- ===================== HERO SPLIT ===================== -->
+  <section class="hero-split">
+    <div class="hs-body">
+      <p class="eyebrow">Wholesale</p>
+      <h1>Serve coffee you're proud to pour.</h1>
+      <p class="lede">
+        We roast to order and deliver fresh every week, train your baristas so
+        it tastes right in the cup, and keep it simple — no long contracts, no
+        runaround.
+      </p>
+      <ul class="policy">
+        <li>Fresh coffee roasted and delivered weekly, not sitting in a warehouse.</li>
+        <li>Barista training included — dialing in espresso, grind, and technique.</li>
+        <li>Month-to-month. If it's not working, you're not stuck.</li>
+      </ul>
+      <div class="cta-row">
+        <a class="btn" href="#wholesale-contact">Request pricing</a>
+        <a class="btn ghost on-dark" href="#wholesale-programs">See the programs</a>
+      </div>
+    </div>
+    <div class="hs-media">
+      <ImageSlot label="Café bar mid-service: barista pulling espresso, steam, morning light" />
+    </div>
+  </section>
+
+  <Pillars
+    eyebrow="Why cafés work with us"
+    heading="A wholesale partner, not just a supplier."
+    items={pillars}
+  />
+
+  <!-- ===================== LOGO MARQUEE ===================== -->
+  <section class="logo-marquee">
+    <p class="lm-eyebrow">Currently pouring Ironwood</p>
+    <div class="lm-track-mask">
+      <div class="lm-track">
+        {marquee.map((p) => <span class="lm-item">{p}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICE CARDS (programs) ===================== -->
+  <section class="section service-cards" id="wholesale-programs">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Programs</p>
+        <h2>Built around how you actually run.</h2>
+        <p>Pick the one that fits your volume — we'll tailor the details when we talk.</p>
+      </div>
+      <div class="sc-grid">
+        {
+          programs.map((p) => (
+            <div class="sc-card">
+              <ImageSlot label={p.slot} />
+              <div class="sc-body">
+                <div class="sc-icon">{p.icon}</div>
+                <h3>{p.title}</h3>
+                <p>{p.body}</p>
+                <a class="sc-link" href="#wholesale-contact">
+                  Request pricing →
+                </a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ TWO COLUMN ===================== -->
+  <section class="section faq2" data-faq2>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Good to know</p>
+        <h2>Wholesale questions, answered.</h2>
+      </div>
+      <div class="faq2-grid">
+        <div class="faq2-list">
+          {
+            faqs.map((f, i) => (
+              <button
+                class={i === 0 ? "faq2-q active" : "faq2-q"}
+                data-q={f.q}
+                data-a={f.a}
+              >
+                {f.q}
+              </button>
+            ))
+          }
+        </div>
+        <div class="faq2-answer">
+          <p class="a-eyebrow">Answer</p>
+          <h3 data-faq2-title>{faqs[0].q}</h3>
+          <p data-faq2-body>{faqs[0].a}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT SPLIT (inquiry) ===================== -->
+  <section class="section contact-split" id="wholesale-contact">
+    <div class="wrap">
+      <div class="section-head left">
+        <p class="eyebrow">Get in touch</p>
+        <h2>Request wholesale pricing.</h2>
+        <p>
+          Tell us a little about your business and we'll send a price sheet and
+          set up a tasting. Real person, quick reply.
+        </p>
+      </div>
+      <div class="cs-grid">
+        <form class="res-form" data-visual>
+          <h3>Wholesale inquiry</h3>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="w-business">Business name <span class="req">*</span></label>
+              <input type="text" id="w-business" placeholder="Your café or restaurant" />
+            </div>
+            <div class="field">
+              <label for="w-name">Contact name <span class="req">*</span></label>
+              <input type="text" id="w-name" placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label for="w-email">Email <span class="req">*</span></label>
+              <input type="email" id="w-email" placeholder="you@business.com" />
+            </div>
+            <div class="field full">
+              <label for="w-volume">Current coffee volume</label>
+              <select id="w-volume">
+                <option>Just getting started</option>
+                <option>Under 20 lbs / week</option>
+                <option>20–50 lbs / week</option>
+                <option>50–100 lbs / week</option>
+                <option>100+ lbs / week</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="w-notes">Anything else?</label>
+              <textarea
+                id="w-notes"
+                placeholder="What you serve now, what you're looking for, equipment questions…"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn">Request pricing</button>
+          <p class="fineprint">We'll reply within one business day. No spam, ever.</p>
+        </form>
+        <div class="cs-info">
+          <h3>Talk to our wholesale lead</h3>
+          <p class="cs-lede">
+            Prefer to just talk it through? Theo runs wholesale and answers his
+            own phone.
+          </p>
+          <div class="contact-row">
+            <div class="k">Wholesale</div>
+            <div class="v">
+              <a href="mailto:wholesale@ironwoodroasters.com">
+                wholesale@ironwoodroasters.com
+              </a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Phone</div>
+            <div class="v"><a href="tel:+18285550164">828-555-0164</a> ext. 2</div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Roastery</div>
+            <div class="v">14 Roberts St<br />Asheville, NC 28801</div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Deliveries</div>
+            <div class="v">Weekly across greater Asheville · shipping regionally</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,203 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CrumbBar from "../components/CrumbBar.astro";
+
+const MAP_Q = "14+Roberts+St,+Asheville,+NC+28801";
+const directions = `https://www.google.com/maps/dir/?api=1&destination=${MAP_Q}`;
+
+const gallery = [
+  {
+    wide: true,
+    slot: "The roaster: drum roaster mid-roast",
+    ph: "The roaster: drum roaster mid-roast, roaster at the controls",
+    cap: "The roaster on Roberts Street — where every batch starts.",
+  },
+  {
+    slot: "The bar: espresso machine, barista",
+    ph: "The bar: espresso machine, barista pulling a shot",
+    cap: "The bar at morning rush.",
+  },
+  {
+    slot: "Retail shelf: rows of coffee bags",
+    ph: "Retail shelf: rows of coffee bags and gear for sale",
+    cap: "The retail shelf — bags roasted this week.",
+  },
+  {
+    slot: "Latte art: rosetta in a ceramic cup",
+    ph: "Latte art: rosetta poured into a ceramic cup, close-up",
+    cap: "Latte art, most mornings.",
+  },
+  {
+    slot: "Cupping table: rows of cups and spoons",
+    ph: "Cupping table: rows of cups and spoons, coffee slurping setup",
+    cap: "The cupping table — every batch gets tasted here.",
+  },
+  {
+    slot: "The patio: outdoor seating, plants",
+    ph: "The patio: outdoor seating, plants, string lights, warm afternoon",
+    cap: "The patio out back.",
+  },
+  {
+    slot: "Green beans: burlap sacks stacked",
+    ph: "Green beans: burlap sacks of unroasted coffee stacked",
+    cap: "Green coffee, waiting its turn.",
+  },
+  {
+    slot: "Pour-over station: kettle and V60",
+    ph: "Pour-over station: gooseneck kettle, V60 on the counter",
+    cap: "The pour-over station.",
+  },
+];
+
+const hours = [
+  { day: "Monday", n: "1" },
+  { day: "Tuesday", n: "2" },
+  { day: "Wednesday", n: "3" },
+  { day: "Thursday", n: "4" },
+  { day: "Friday", n: "5" },
+  { day: "Saturday", n: "6" },
+  { day: "Sunday", n: "0" },
+];
+---
+
+<Layout title="Visit — Café &amp; Roastery on Roberts Street · Ironwood Roasters">
+  <CrumbBar
+    here="Visit"
+    eyebrow="Visit"
+    title="The café and roaster share one room."
+    lede="14 Roberts St, in Asheville's River Arts District. Come in for a cup, watch a roast, and grab a bag that came off the drum this morning."
+  />
+
+  <!-- ===================== GOOGLE MAP EMBED ===================== -->
+  <section class="section mapembed">
+    <div class="wrap">
+      <div class="section-head left">
+        <p class="eyebrow">Find us</p>
+        <h2>Roberts Street, Asheville.</h2>
+      </div>
+      <div class="mapembed-grid">
+        <div class="map-box">
+          <iframe
+            title="Map to Ironwood Roasters, 14 Roberts St, Asheville, NC 28801"
+            src={`https://www.google.com/maps?q=${MAP_Q}&output=embed`}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="contact-card">
+          <h3>Café &amp; roastery</h3>
+          <div class="contact-row">
+            <div class="k">Address</div>
+            <div class="v">14 Roberts St<br />Asheville, NC 28801</div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Phone</div>
+            <div class="v"><a href="tel:+18285550164">828-555-0164</a></div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Email</div>
+            <div class="v">
+              <a href="mailto:hello@ironwoodroasters.com">hello@ironwoodroasters.com</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Hours</div>
+            <div class="v">Mon–Sun · 7am–5pm</div>
+          </div>
+          <a class="btn ghost dir-link" href={directions} target="_blank" rel="noopener">
+            Get directions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LIGHTBOX GALLERY ===================== -->
+  <section class="section gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The room</p>
+        <h2>A look inside.</h2>
+        <p>Tap any photo to enlarge. This is where the coffee gets made and poured.</p>
+      </div>
+      <div class="gal-grid">
+        {
+          gallery.map((g) => (
+            <button
+              class={g.wide ? "gal-item wide" : "gal-item"}
+              data-gal-item
+              data-gal-ph={g.ph}
+              data-gal-cap={g.cap}
+              aria-label={g.cap}
+            >
+              <ImageSlot label={g.slot} />
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOURS CARD ===================== -->
+  <section class="section hours-sec">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Café hours</p>
+        <h2>Open every day.</h2>
+      </div>
+      <div class="hours-card" data-hours>
+        <div class="hours-status">
+          <span class="dot"></span>
+          <b data-hours-label>Open now</b>
+          <span data-hours-sub>Today until 5:00pm</span>
+        </div>
+        <div class="hours-rows">
+          {
+            hours.map((h) => (
+              <div class="hours-row" data-day={h.n}>
+                <span class="day">{h.day}</span>
+                <span class="time">7:00am – 5:00pm</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT BAR ===================== -->
+  <section class="contact-bar-sec">
+    <div class="contact-bar">
+      <span class="cb-label">Quick actions</span>
+      <a class="btn" href="tel:+18285550164">Call</a>
+      <a class="btn ghost" href={directions} target="_blank" rel="noopener">Directions</a>
+      <a class="btn ghost" href="mailto:hello@ironwoodroasters.com">Email</a>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER CTA ===================== -->
+  <section class="footer-cta">
+    <div class="wrap">
+      <p class="eyebrow">See you on Roberts Street</p>
+      <h2>Pull up a chair — first cup's on us for new faces.</h2>
+      <p>
+        Tell whoever's on bar it's your first time in. We'll pour you something
+        we're excited about and point you at the roaster.
+      </p>
+      <a class="btn" href="/coffee/">Browse the coffee</a>
+    </div>
+  </section>
+
+  <!-- ===================== LIGHTBOX MODAL ===================== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lb-close" aria-label="Close">×</button>
+    <button class="lb-btn lb-prev" aria-label="Previous">‹</button>
+    <div class="lb-stage">
+      <div class="img-slot">
+        <span class="slot-label" data-lb-label></span>
+      </div>
+      <div class="lb-cap" data-lb-cap></div>
+    </div>
+    <button class="lb-btn lb-next" aria-label="Next">›</button>
+  </div>
+</Layout>

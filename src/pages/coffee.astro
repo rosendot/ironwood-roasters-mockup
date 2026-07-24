@@ -1,0 +1,186 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CrumbBar from "../components/CrumbBar.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const tabs = [
+  { cat: "all", label: "All" },
+  { cat: "single", label: "Single-Origin" },
+  { cat: "blends", label: "Blends" },
+  { cat: "decaf", label: "Decaf" },
+  { cat: "gear", label: "Gear" },
+];
+
+const products = [
+  {
+    cat: "single",
+    slot: "Ethiopia Yirgacheffe bag — kraft bag, whole beans beside it",
+    label: "Single-Origin",
+    name: "Ethiopia Yirgacheffe",
+    price: "$22",
+    notes:
+      "Blueberry, floral, tea-like. A natural process that drinks like fruit — our loudest, most-loved lot.",
+  },
+  {
+    cat: "single",
+    slot: "Colombia Huila bag — kraft bag, whole beans beside it",
+    label: "Single-Origin",
+    name: "Colombia Huila",
+    price: "$19",
+    notes:
+      "Caramel, red apple, clean finish. The crowd-pleaser — sweet and easy, hot or iced.",
+  },
+  {
+    cat: "single",
+    slot: "Sumatra Mandheling bag — dark beans, kraft bag",
+    label: "Single-Origin",
+    name: "Sumatra Mandheling",
+    price: "$20",
+    notes:
+      "Cedar, dark chocolate, low acidity. Earthy and full-bodied — a French press favorite.",
+  },
+  {
+    cat: "blends",
+    slot: "Ironwood House Blend bag — signature label",
+    label: "Blend",
+    name: "Ironwood House Blend",
+    price: "$17",
+    notes:
+      "Balanced, everyday, endlessly drinkable. The bag we keep on our own counters.",
+  },
+  {
+    cat: "blends",
+    slot: "Sunrise Breakfast Blend bag",
+    label: "Blend",
+    name: "Sunrise Breakfast Blend",
+    price: "$17",
+    notes:
+      "Bright, citrus, snappy. A lighter roast built to wake you up without the bitterness.",
+  },
+  {
+    cat: "decaf",
+    slot: "Midnight Decaf bag — water-process label",
+    label: "Decaf · Water process",
+    name: "Midnight Decaf",
+    price: "$18",
+    notes:
+      "Cocoa, smooth, mellow. Decaffeinated with water, not chemicals — so it still tastes like coffee.",
+  },
+  {
+    cat: "gear",
+    slot: "V60 dripper — ceramic pour-over cone on a bench",
+    label: "Gear",
+    name: "V60 Dripper",
+    price: "$28",
+    notes:
+      "The pour-over cone we reach for. Clean, bright cups and dead simple once you dial it in.",
+  },
+  {
+    cat: "gear",
+    slot: "Gooseneck kettle — matte black, thin spout",
+    label: "Gear",
+    name: "Gooseneck Kettle",
+    price: "$65",
+    notes:
+      "Slow, precise pours make a real difference on filter coffee. This is the one we use every day.",
+  },
+];
+
+const rows = [
+  {
+    slot: "Green (unroasted) coffee beans in burlap sacks, farm crate",
+    eyebrow: "New harvest, every season",
+    heading: "The single-origin lineup is always moving.",
+    paras: [
+      "Coffee is a crop, so the best lots change through the year. As new harvests land, we cup them, pick the ones worth your money, and rotate them onto the shelf.",
+      "That means the Ethiopia you loved in spring might be a different — better — Ethiopia by fall. Subscribe and we'll steer you to whatever's peaking.",
+    ],
+  },
+  {
+    slot: "Whole beans vs ground coffee side by side; a burr grinder",
+    eyebrow: "Grind to match your brew",
+    heading: "Whole bean, or ground for how you make it.",
+    paras: [
+      "Whole bean keeps longest and tastes best — but if you don't have a grinder, we'll grind to order for your setup: drip, pour-over, French press, espresso, or cold brew.",
+      "Just tell us how you brew at checkout. Either way it ships within 48 hours of roasting.",
+    ],
+  },
+];
+---
+
+<Layout title="Coffee — Single-Origin, Blends &amp; Gear · Ironwood Roasters">
+  <CrumbBar
+    here="Coffee"
+    eyebrow="The shop"
+    title="Every bag we're roasting right now."
+    lede="Whole bean or ground, single farm or house blend — all of it roasted this week on Roberts Street, with the roast date stamped on the bag."
+  />
+
+  <!-- ===================== MENU GRID (shop) ===================== -->
+  <section class="section menu-grid-sec" data-menu-grid>
+    <div class="wrap">
+      <div class="mg-tabs">
+        {
+          tabs.map((t) => (
+            <button
+              class={t.cat === "all" ? "mg-tab active" : "mg-tab"}
+              data-cat={t.cat}
+            >
+              {t.label}
+            </button>
+          ))
+        }
+      </div>
+      <div class="mg-grid">
+        {
+          products.map((p) => (
+            <div class="mg-card" data-cat={p.cat}>
+              <ImageSlot label={p.slot} />
+              <div class="mg-body">
+                <p class="mg-cat">{p.label}</p>
+                <div class="mg-head">
+                  <h3>{p.name}</h3>
+                  <span class="mg-price">{p.price}</span>
+                </div>
+                <p class="mg-notes">{p.notes}</p>
+                <button class="mg-add">Add to bag →</button>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURE ALTERNATING ===================== -->
+  <section class="section feature-alt">
+    <div class="wrap">
+      <div class="fa-rows">
+        {
+          rows.map((r, i) => (
+            <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
+              <div class="fa-media">
+                <ImageSlot label={r.slot} />
+              </div>
+              <div class="fa-body">
+                <p class="eyebrow">{r.eyebrow}</p>
+                <h3>{r.heading}</h3>
+                {r.paras.map((p) => (
+                  <p>{p}</p>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Never run out — start a subscription."
+    body="Pick your bags and your schedule. We roast, we ship, you brew. Pause, swap, or cancel anytime — no lock-in."
+    cta="Set up a subscription"
+    href="/coffee/"
+  />
+</Layout>

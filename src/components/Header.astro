@@ -1,0 +1,38 @@
+---
+/** Sticky dark header. The active tab is driven by the current route so each
+ *  page doesn't have to hand-mark its own nav link. */
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/coffee/", label: "Coffee" },
+  { href: "/wholesale/", label: "Wholesale" },
+  { href: "/our-craft/", label: "Our Craft" },
+  { href: "/journal/", label: "Journal" },
+  { href: "/visit/", label: "Visit" },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header class="site-header" id="header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <span class="mark">Ir</span>
+      <span class="name">Ironwood Roasters<small>Asheville · NC</small></span>
+    </a>
+    <nav class="nav" id="nav">
+      {
+        links.map((l) => (
+          <a class={isActive(l.href) ? "lnk active" : "lnk"} href={l.href}>
+            {l.label}
+          </a>
+        ))
+      }
+      <a class="btn" href="/coffee/">Shop Coffee</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>

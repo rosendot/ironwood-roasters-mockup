@@ -1,0 +1,226 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import Pillars from "../components/Pillars.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import { partners } from "../data/wholesale-partners";
+
+const pillars = [
+  {
+    num: "I",
+    title: "Roasted in small batches",
+    body: "We never roast more than we can sell fresh. Bags leave the shelf within days of coming off the drum, not months.",
+  },
+  {
+    num: "II",
+    title: "Sourced with names attached",
+    body: 'We know the farms our green coffee comes from — and we tell you. No mystery blends, no "product of many countries."',
+  },
+  {
+    num: "III",
+    title: "Roasted to taste like the bean",
+    body: "Light-to-medium, never charred. A good coffee should taste like where it grew, not like the inside of a roaster.",
+  },
+];
+
+const categories = [
+  {
+    slot: "Single-origin: hand holding whole beans, bright natural light",
+    kicker: "Rotating · Seasonal",
+    name: "Single-Origin",
+    body: "One farm, one lot, one flavor to chase. These change with the harvest, so the lineup on the shelf is never quite the same twice.",
+    link: "Shop single-origin →",
+  },
+  {
+    slot: "Signature blend: dark roasted beans spilling from a kraft bag",
+    kicker: "Everyday",
+    name: "Signature Blends",
+    body: "The bags we drink at home. Balanced, forgiving, and built to taste good however you brew them — drip, press, or espresso.",
+    link: "Shop blends →",
+  },
+  {
+    slot: "Decaf: mug of coffee at dusk, warm and calm",
+    kicker: "Water process",
+    name: "Decaf",
+    body: "Decaffeinated with water, not chemicals — so it still tastes like coffee. For the second cup, the late one, or every cup.",
+    link: "Shop decaf →",
+  },
+  {
+    slot: "Subscription: stack of labeled coffee bags ready to ship",
+    kicker: "On your schedule",
+    name: "Subscriptions",
+    body: "Fresh bags on the schedule you set — weekly, biweekly, monthly. Pause or change it anytime. Never run out again.",
+    link: "Start a subscription →",
+  },
+];
+
+const steps = [
+  {
+    n: "1",
+    title: "We source green beans",
+    body: "We buy unroasted coffee from farms and importers we know, chosen by cupping — not by price alone.",
+  },
+  {
+    n: "2",
+    title: "We roast in small batches",
+    body: "Every lot goes into the drum in batches small enough to watch closely and pull at exactly the right moment.",
+  },
+  {
+    n: "3",
+    title: "We cup and dial it in",
+    body: "We taste every roast against the last one. If it isn't right, it doesn't get bagged — it gets adjusted.",
+  },
+  {
+    n: "4",
+    title: "It ships within 48 hours",
+    body: "Bags leave us within two days of roasting, with the roast date stamped on so you always know how fresh it is.",
+  },
+];
+
+const testimonials = [
+  {
+    quote: "The Ethiopia natural tastes like blueberry jam. Ridiculous.",
+    initial: "S",
+    name: "Sam K.",
+    meta: "Asheville",
+  },
+  {
+    quote:
+      "We switched our whole café to Ironwood and regulars noticed the next day.",
+    initial: "N",
+    name: "Nina P.",
+    meta: "Owner, Blue Ridge Coffee",
+  },
+  {
+    quote: "Freshest beans I've ever brewed at home.",
+    initial: "D",
+    name: "Derek M.",
+    meta: "Weaverville",
+  },
+];
+---
+
+<Layout title="Ironwood Roasters — Small-Batch Coffee Roasted in Asheville, NC">
+  <!-- ===================== HERO VIDEO ===================== -->
+  <section class="hero-video">
+    <ImageSlot label="LOOPING VIDEO: beans tumbling in the roaster drum / slow pour-over in progress — warm, close, shallow depth of field" />
+    <div class="hv-scrim"></div>
+    <div class="hv-badge"><span class="live"></span> Roasting today</div>
+    <div class="hero-body">
+      <p class="eyebrow">Asheville, NC</p>
+      <h1>Coffee worth slowing down for.</h1>
+      <p class="subhead">
+        Small-batch beans roasted a few blocks from where you'll drink them —
+        bright, honest, and never burnt to hide a cheap bean.
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="/coffee/">Shop Coffee</a>
+        <a class="btn ghost on-dark" href="/coffee/">Find your roast</a>
+      </div>
+    </div>
+  </section>
+
+  <Pillars
+    eyebrow="Why Ironwood"
+    heading="Three things we don't cut corners on."
+    items={pillars}
+  />
+
+  <!-- ===================== MENU CARDS ===================== -->
+  <section class="section menu-cards">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Our coffee</p>
+        <h2>Find the bag that's yours.</h2>
+        <p>
+          Four ways in — whether you want a rotating adventure or the same
+          reliable cup every morning.
+        </p>
+      </div>
+      <div class="mc-grid">
+        {
+          categories.map((c) => (
+            <a class="mc-card" href="/coffee/">
+              <div class="mc-media">
+                <ImageSlot label={c.slot} />
+                <span class="mc-kicker">{c.kicker}</span>
+                <h3 class="mc-name">{c.name}</h3>
+              </div>
+              <div class="mc-body">
+                <p>{c.body}</p>
+                <span class="mc-link">{c.link}</span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROCESS STEPS ===================== -->
+  <section class="section process">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">From bean to cup</p>
+        <h2>How your bag gets made.</h2>
+      </div>
+      <div class="steps">
+        {
+          steps.map((s) => (
+            <div class="step">
+              <div class="badge">{s.n}</div>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LOGO WALL ===================== -->
+  <section class="section logo-wall">
+    <div class="wrap">
+      <p class="lw-eyebrow">
+        Poured at cafés and restaurants across Asheville
+      </p>
+      <div class="lw-grid">
+        {partners.map((p) => <div class="lw-logo">{p}</div>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL CARDS ===================== -->
+  <section class="section t-cards">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">In their words</p>
+        <h2>People who taste the difference.</h2>
+      </div>
+      <div class="tc-grid">
+        {
+          testimonials.map((t) => (
+            <div class="tc-card">
+              <div class="stars">★★★★★</div>
+              <blockquote>"{t.quote}"</blockquote>
+              <div class="tc-who">
+                <div class="tc-avatar">{t.initial}</div>
+                <div class="tc-meta">
+                  <b>{t.name}</b>
+                  <span>{t.meta}</span>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Not sure where to start? Grab a sampler."
+    body="Three of our current favorites in smaller bags — a low-stakes way to find the roast you'll come back for."
+    cta="Shop the sampler"
+    href="/coffee/"
+  />
+</Layout>

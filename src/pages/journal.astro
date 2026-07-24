@@ -1,0 +1,97 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CrumbBar from "../components/CrumbBar.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const posts = [
+  {
+    slot: "Pour-over in progress: gooseneck kettle, V60, bloom",
+    tag: "Brew Guides",
+    date: "June 18, 2026",
+    title: "How to dial in a pour-over at home",
+    excerpt:
+      "Grind, ratio, water temp, pour speed — the four dials that matter, and how to adjust them when your cup is sour or flat.",
+  },
+  {
+    slot: "Colombia Huila farm: green mountainside, coffee cherries",
+    tag: "Sourcing",
+    date: "June 4, 2026",
+    title: "Meet the farm behind our Colombia Huila",
+    excerpt:
+      "The Huila lot that's become a house favorite comes from one family's farm in the Colombian Andes. Here's who grows it and why it tastes the way it does.",
+  },
+  {
+    slot: "Roast comparison: light vs dark beans side by side",
+    tag: "Roasting",
+    date: "May 21, 2026",
+    title: "Why we roast lighter than most",
+    excerpt:
+      "Dark roast hides a lot — including cheap beans. We roast to taste the coffee, not the char. What that means for your morning cup.",
+  },
+  {
+    slot: "Espresso shot pulling vs filter coffee brewing",
+    tag: "Brew Guides",
+    date: "May 7, 2026",
+    title: "Espresso vs. filter: which beans for what",
+    excerpt:
+      "Any coffee can go through an espresso machine — but some sing and some fight you. How we pick beans for each brew method.",
+  },
+  {
+    slot: "Natural process: coffee cherries drying on raised beds",
+    tag: "Sourcing",
+    date: "April 23, 2026",
+    title: "What 'natural process' actually means",
+    excerpt:
+      "Washed, natural, honey — the words on the bag aren't marketing. Here's what each process does and why our Ethiopia tastes like berries.",
+  },
+  {
+    slot: "Coffee storage: sealed bag and airtight jar on a shelf",
+    tag: "Brew Guides",
+    date: "April 9, 2026",
+    title: "Storing beans so they stay fresh",
+    excerpt:
+      "The fridge is a trap and so is a clear jar on the counter. Simple rules for keeping your bag tasting the way it did on roast day.",
+  },
+];
+---
+
+<Layout title="Journal — Brew Guides, Sourcing &amp; Roasting Notes · Ironwood Roasters">
+  <CrumbBar
+    here="Journal"
+    eyebrow="Journal"
+    title="Brew tips, sourcing notes, roast talk."
+    lede="Nerdy about coffee, no gatekeeping. Practical guides for better cups at home, plus the stories behind the beans on our shelf."
+  />
+
+  <!-- ===================== BLOG CARDS ===================== -->
+  <section class="section blog">
+    <div class="wrap">
+      <div class="blog-grid">
+        {
+          posts.map((p) => (
+            <a class="blog-card" href="#">
+              <div class="blog-media">
+                <ImageSlot label={p.slot} />
+                <span class="blog-tag">{p.tag}</span>
+              </div>
+              <div class="blog-body">
+                <p class="blog-date">{p.date}</p>
+                <h3>{p.title}</h3>
+                <p class="blog-excerpt">{p.excerpt}</p>
+                <span class="blog-more">Read more →</span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Get brew tips in your inbox."
+    body="One email a month — new guides, new harvests, and the occasional subscriber-only lot. No spam, unsubscribe anytime."
+    cta="Join the newsletter"
+    href="#"
+  />
+</Layout>

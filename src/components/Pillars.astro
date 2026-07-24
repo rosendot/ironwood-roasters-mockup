@@ -1,0 +1,35 @@
+---
+/** Three roman-numeral pillars. Home and Wholesale each pass their own set. */
+interface Pillar {
+  num: string;
+  title: string;
+  body: string;
+}
+interface Props {
+  eyebrow: string;
+  heading: string;
+  items: Pillar[];
+}
+const { eyebrow, heading, items } = Astro.props;
+---
+
+<section class="section features">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{heading}</h2>
+    </div>
+    <div class="feature-grid">
+      {
+        items.map((p) => (
+          <div class="pillar">
+            <div class="num">{p.num}</div>
+            <div class="rule" />
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

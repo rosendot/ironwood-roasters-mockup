@@ -1,0 +1,194 @@
+---
+import Announce from "../components/Announce.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/tokens.css";
+import "../styles/ironwood.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Ironwood Roasters — small-batch coffee roasted on Roberts Street in Asheville, NC. Single-origins, blends, subscriptions, and wholesale for cafés and restaurants.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <Announce />
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>
+
+<script>
+  // Ported from the design's shared ironwood.js. Each block no-ops on pages
+  // that don't contain its markup, so one script serves all six routes.
+
+  /* --- Header: subtle shadow after scroll --- */
+  const header = document.getElementById("header");
+  if (header) {
+    const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  /* --- Mobile nav toggle --- */
+  const navToggle = document.getElementById("navToggle");
+  const nav = document.getElementById("nav");
+  if (navToggle && nav) {
+    navToggle.addEventListener("click", () => {
+      const open = nav.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    nav.addEventListener("click", (e) => {
+      const t = e.target as HTMLElement;
+      if (t.classList.contains("lnk") || t.classList.contains("btn")) {
+        nav.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  /* --- Announcement bar dismiss (persisted) --- */
+  const anno = document.getElementById("announce");
+  if (anno) {
+    const key = `ironwood-anno-${anno.getAttribute("data-anno-id") || "1"}`;
+    try {
+      if (localStorage.getItem(key) === "dismissed") anno.classList.add("hidden");
+    } catch {
+      /* private mode — bar just stays visible */
+    }
+    anno.querySelector(".anno-close")?.addEventListener("click", () => {
+      anno.classList.add("hidden");
+      try {
+        localStorage.setItem(key, "dismissed");
+      } catch {
+        /* nothing to persist to */
+      }
+    });
+  }
+
+  /* --- Menu grid category filter tabs --- */
+  const mg = document.querySelector("[data-menu-grid]");
+  if (mg) {
+    const tabs = Array.from(mg.querySelectorAll<HTMLElement>(".mg-tab"));
+    const cards = Array.from(mg.querySelectorAll<HTMLElement>(".mg-card"));
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.toggle("active", t === tab));
+        const cat = tab.getAttribute("data-cat");
+        cards.forEach((c) => {
+          const show = cat === "all" || c.getAttribute("data-cat") === cat;
+          c.classList.toggle("hide", !show);
+        });
+      });
+    });
+  }
+
+  /* --- FAQ two-column: click a question, update the answer panel --- */
+  const faq2 = document.querySelector("[data-faq2]");
+  if (faq2) {
+    const qs = Array.from(faq2.querySelectorAll<HTMLElement>(".faq2-q"));
+    const ansTitle = faq2.querySelector("[data-faq2-title]");
+    const ansBody = faq2.querySelector("[data-faq2-body]");
+    const select = (btn: HTMLElement) => {
+      qs.forEach((q) => q.classList.toggle("active", q === btn));
+      if (ansTitle) ansTitle.textContent = btn.getAttribute("data-q");
+      if (ansBody) ansBody.textContent = btn.getAttribute("data-a");
+    };
+    qs.forEach((q) => q.addEventListener("click", () => select(q)));
+    if (qs.length) select(qs[0]);
+  }
+
+  /* --- Lightbox gallery ---
+     With no real photos yet the overlay shows the caption for the clicked
+     thumbnail. Once ImageSlot gets a `src`, swap in the matching <img>. */
+  const lb = document.getElementById("lightbox");
+  const galItems = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-gal-item]"),
+  );
+  if (lb && galItems.length) {
+    const lbLabel = lb.querySelector("[data-lb-label]");
+    const lbCap = lb.querySelector("[data-lb-cap]");
+    let current = 0;
+
+    const open = (i: number) => {
+      current = (i + galItems.length) % galItems.length;
+      const item = galItems[current];
+      if (lbLabel) lbLabel.textContent = item.getAttribute("data-gal-ph") || "";
+      if (lbCap) lbCap.textContent = item.getAttribute("data-gal-cap") || "";
+      lb.classList.add("open");
+      document.body.style.overflow = "hidden";
+    };
+    const close = () => {
+      lb.classList.remove("open");
+      document.body.style.overflow = "";
+    };
+
+    galItems.forEach((item, i) => item.addEventListener("click", () => open(i)));
+    lb.querySelector(".lb-prev")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      open(current - 1);
+    });
+    lb.querySelector(".lb-next")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      open(current + 1);
+    });
+    lb.querySelector(".lb-close")?.addEventListener("click", close);
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") open(current - 1);
+      else if (e.key === "ArrowRight") open(current + 1);
+    });
+  }
+
+  /* --- Live hours status: Mon–Sun 7am–5pm --- */
+  const hoursCard = document.querySelector("[data-hours]");
+  if (hoursCard) {
+    const now = new Date();
+    const day = now.getDay();
+    const hour = now.getHours() + now.getMinutes() / 60;
+    const isOpen = hour >= 7 && hour < 17;
+
+    hoursCard.querySelector(".dot")?.classList.toggle("closed", !isOpen);
+    const label = hoursCard.querySelector("[data-hours-label]");
+    const sub = hoursCard.querySelector("[data-hours-sub]");
+    if (label) label.textContent = isOpen ? "Open now" : "Closed now";
+    if (sub) {
+      sub.textContent = isOpen
+        ? "Today until 5:00pm"
+        : hour < 7
+          ? "Opens today at 7:00am"
+          : "Opens tomorrow at 7:00am";
+    }
+    hoursCard
+      .querySelector(`.hours-row[data-day="${day}"]`)
+      ?.classList.add("today");
+  }
+
+  /* --- Prevent dead-link jumps on visual-only forms --- */
+  document.querySelectorAll("form[data-visual]").forEach((f) => {
+    f.addEventListener("submit", (e) => e.preventDefault());
+  });
+</script>

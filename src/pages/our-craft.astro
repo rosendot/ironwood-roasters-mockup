@@ -1,0 +1,182 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CrumbBar from "../components/CrumbBar.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const rows = [
+  {
+    slot: "Sourcing: hands sorting green coffee cherries at a farm",
+    eyebrow: "Sourcing",
+    heading: "Relationships, not brokers.",
+    paras: [
+      "We buy through importers who name the farm, the region, and the people — and we go back to the same growers year after year. When a lot's exceptional, that relationship is why we get first call on it.",
+      "Paying fairly isn't charity; it's how you keep buying good coffee. Farmers who make money keep farming well.",
+    ],
+  },
+  {
+    slot: "Roasting: beans mid-roast in the drum, roaster watching the color",
+    eyebrow: "Roasting",
+    heading: "The roast profile is everything.",
+    paras: [
+      "Every coffee gets its own curve — how fast it heats, when it turns, where we stop. Too dark and every bean tastes the same; too light and it's grassy. We aim for the window where the bean's own character comes through.",
+      "We log every roast, so a bag you loved in March tastes like the bag you buy in September.",
+    ],
+  },
+  {
+    slot: "Cupping table: rows of cups, spoons, roaster tasting",
+    eyebrow: "Quality",
+    heading: "We cup every batch before it ships.",
+    paras: [
+      "Cupping is just tasting, methodically. Every roast gets brewed and tasted against the last one before it's cleared to bag. If it drifted, we adjust the next roast — or pull the batch.",
+      "It's the least glamorous part of the week and the one we'd never skip.",
+    ],
+  },
+];
+
+const stats = [
+  { num: "10", lbl: "Years roasting" },
+  { num: "40+", lbl: "Origins sourced" },
+  { num: "2,000", lbl: "Pounds roasted a week" },
+  { num: "30", lbl: "Wholesale partners" },
+];
+
+const team = [
+  {
+    slot: "Marcus — founder & head roaster, portrait",
+    name: "Marcus",
+    role: "Founder & Head Roaster",
+    body: "Started it on a popcorn popper. Still pulls most of the roasts and tastes every batch.",
+  },
+  {
+    slot: "Elena — green buyer, portrait",
+    name: "Elena",
+    role: "Green Buyer",
+    body: "Sources our coffee and keeps the farm relationships honest. Cups more lots than anyone.",
+  },
+  {
+    slot: "Theo — wholesale lead, portrait",
+    name: "Theo",
+    role: "Wholesale Lead",
+    body: "Runs the café accounts and the barista training. The rep who actually answers.",
+  },
+  {
+    slot: "Priya — café manager, portrait",
+    name: "Priya",
+    role: "Café Manager",
+    body: "Runs the retail bar on Roberts Street and knows the regulars' orders by heart.",
+  },
+];
+---
+
+<Layout title="Our Craft — How We Source &amp; Roast · Ironwood Roasters">
+  <CrumbBar
+    here="Our Craft"
+    eyebrow="Our craft"
+    title="The care behind the cup."
+    lede="Good coffee isn't luck. It's who you buy from, how you roast it, and whether you're honest enough to dump a batch that isn't right. Here's how we work."
+  />
+
+  <!-- ===================== TEAM SPOTLIGHT (founder) ===================== -->
+  <section class="section spotlight">
+    <div class="wrap">
+      <div class="spotlight-grid">
+        <div class="spotlight-media">
+          <ImageSlot label="Founder portrait: Marcus at the roaster, apron, warm honest light" />
+          <span class="badge">Marcus, Head Roaster</span>
+        </div>
+        <div class="spotlight-body">
+          <p class="eyebrow">How it started</p>
+          <h2>From a popcorn popper in the garage.</h2>
+          <p>
+            Marcus started roasting on a popcorn popper in his garage in 2014,
+            chasing a cup he'd had on a trip and couldn't find at home. Batches
+            were tiny, half of them were scorched, and the neighbors started
+            asking for bags.
+          </p>
+          <p>
+            A used shop drum roaster and a lease on Roberts Street later, that
+            garage habit turned into Ironwood. The rules haven't changed since
+            the popper: buy coffee worth roasting, roast it so it tastes like
+            itself, and don't sell anything you wouldn't drink.
+          </p>
+          <p>
+            Ten years on, we're still small on purpose. Growing means more farms
+            we know and more cafés we supply — not bigger batches sitting longer
+            on a shelf.
+          </p>
+          <p class="sig">— Marcus, Founder &amp; Head Roaster</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURE ALTERNATING (craft) ===================== -->
+  <section class="section feature-alt">
+    <div class="wrap">
+      <div class="fa-rows">
+        {
+          rows.map((r, i) => (
+            <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
+              <div class="fa-media">
+                <ImageSlot label={r.slot} />
+              </div>
+              <div class="fa-body">
+                <p class="eyebrow">{r.eyebrow}</p>
+                <h3>{r.heading}</h3>
+                {r.paras.map((p) => (
+                  <p>{p}</p>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <section class="section stats">
+    <div class="wrap">
+      <div class="stat-grid">
+        {
+          stats.map((s) => (
+            <div class="stat">
+              <div class="num">{s.num}</div>
+              <div class="lbl">{s.lbl}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TEAM GRID ===================== -->
+  <section class="section team">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The crew</p>
+        <h2>The people on Roberts Street.</h2>
+      </div>
+      <div class="team-grid">
+        {
+          team.map((m) => (
+            <div class="team-card">
+              <ImageSlot label={m.slot} />
+              <h3>{m.name}</h3>
+              <p class="role">{m.role}</p>
+              <p>{m.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Come see (and smell) the roastery."
+    body="The café and the roaster share one room on Roberts Street. Pull up a chair, watch a roast, and taste what came off the drum this morning."
+    cta="Plan a visit"
+    href="/visit/"
+  />
+</Layout>
