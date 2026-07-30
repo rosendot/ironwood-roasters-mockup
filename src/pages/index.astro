@@ -26,6 +26,8 @@ const pillars = [
 const categories = [
   {
     slot: "Single-origin: hand holding whole beans, bright natural light",
+    src: "/photos/cat-single-origin.webp",
+    alt: "Cupped hands holding a heap of light-roast whole beans, held up to window light in the roastery",
     kicker: "Rotating · Seasonal",
     name: "Single-Origin",
     body: "One farm, one lot, one flavor to chase. These change with the harvest, so the lineup on the shelf is never quite the same twice.",
@@ -33,6 +35,8 @@ const categories = [
   },
   {
     slot: "Signature blend: dark roasted beans spilling from a kraft bag",
+    src: "/photos/cat-blends.webp",
+    alt: "Dark roasted beans spilling from a tipped kraft paper bag across a worn wooden table",
     kicker: "Everyday",
     name: "Signature Blends",
     body: "The bags we drink at home. Balanced, forgiving, and built to taste good however you brew them — drip, press, or espresso.",
@@ -40,6 +44,8 @@ const categories = [
   },
   {
     slot: "Decaf: mug of coffee at dusk, warm and calm",
+    src: "/photos/cat-decaf.webp",
+    alt: "A plain stoneware mug of black coffee steaming on a wooden windowsill at dusk",
     kicker: "Water process",
     name: "Decaf",
     body: "Decaffeinated with water, not chemicals — so it still tastes like coffee. For the second cup, the late one, or every cup.",
@@ -47,6 +53,8 @@ const categories = [
   },
   {
     slot: "Subscription: stack of labeled coffee bags ready to ship",
+    src: "/photos/cat-subscriptions.webp",
+    alt: "Three plain kraft coffee bags standing in a row on a wooden shelf beside paper tape and scissors",
     kicker: "On your schedule",
     name: "Subscriptions",
     body: "Fresh bags on the schedule you set — weekly, biweekly, monthly. Pause or change it anytime. Never run out again.",
@@ -103,7 +111,10 @@ const testimonials = [
 <Layout title="Ironwood Roasters — Small-Batch Coffee Roasted in Asheville, NC">
   <!-- ===================== HERO VIDEO ===================== -->
   <section class="hero-video">
-    <ImageSlot label="LOOPING VIDEO: beans tumbling in the roaster drum / slow pour-over in progress — warm, close, shallow depth of field" />
+    <ImageSlot
+      src="/photos/hero-roaster.webp"
+      alt="A cast-iron drum roaster in the Ironwood roastery, beans tumbling behind its sight glass, with a cooling tray and a burlap sack of green coffee on the work counter"
+    />
     <div class="hv-scrim"></div>
     <div class="hv-badge"><span class="live"></span> Roasting today</div>
     <div class="hero-body">
@@ -142,7 +153,7 @@ const testimonials = [
           categories.map((c) => (
             <a class="mc-card" href="/coffee/">
               <div class="mc-media">
-                <ImageSlot label={c.slot} />
+                <ImageSlot label={c.slot} src={c.src} alt={c.alt} />
                 <span class="mc-kicker">{c.kicker}</span>
                 <h3 class="mc-name">{c.name}</h3>
               </div>

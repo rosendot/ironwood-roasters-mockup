@@ -732,6 +732,10 @@ a { color: inherit; }
   object-fit: cover;
 }
 .img-slot.contain > img { object-fit: contain; }
+/* The hero is far wider than the 16:9 photo filling it, so cover() crops height.
+   Anchor above centre — the roaster sits in the upper part of the frame and a
+   centred crop cuts its top off on wide screens. */
+.hero-video .img-slot > img { object-position: center 34%; }
 /* Caption describing the photo that belongs here. Hidden once a real image
    is supplied. */
 .img-slot .slot-label {
