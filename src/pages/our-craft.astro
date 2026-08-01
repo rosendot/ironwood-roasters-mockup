@@ -7,6 +7,8 @@ import CtaBanner from "../components/CtaBanner.astro";
 const rows = [
   {
     slot: "Sourcing: hands sorting green coffee cherries at a farm",
+    src: "/photos/craft-sourcing.webp",
+    alt: "Hands holding a bowl of freshly picked red and yellow coffee cherries",
     eyebrow: "Sourcing",
     heading: "Relationships, not brokers.",
     paras: [
@@ -16,6 +18,8 @@ const rows = [
   },
   {
     slot: "Roasting: beans mid-roast in the drum, roaster watching the color",
+    src: "/photos/craft-roasting.webp",
+    alt: "Beans tumbling in the drum of a roaster, glowing under the light",
     eyebrow: "Roasting",
     heading: "The roast profile is everything.",
     paras: [
@@ -25,6 +29,8 @@ const rows = [
   },
   {
     slot: "Cupping table: rows of cups, spoons, roaster tasting",
+    src: "/photos/craft-cupping.webp",
+    alt: "A cupping table set with rows of cups and tasting spoons",
     eyebrow: "Quality",
     heading: "We cup every batch before it ships.",
     paras: [
@@ -44,24 +50,32 @@ const stats = [
 const team = [
   {
     slot: "Marcus — founder & head roaster, portrait",
+    src: "/photos/team-marcus.webp",
+    alt: "Marcus, founder and head roaster, in an apron behind the bar",
     name: "Marcus",
     role: "Founder & Head Roaster",
     body: "Started it on a popcorn popper. Still pulls most of the roasts and tastes every batch.",
   },
   {
     slot: "Elena — green buyer, portrait",
+    src: "/photos/team-elena.webp",
+    alt: "Elena, green buyer, smiling in an apron",
     name: "Elena",
     role: "Green Buyer",
     body: "Sources our coffee and keeps the farm relationships honest. Cups more lots than anyone.",
   },
   {
     slot: "Theo — wholesale lead, portrait",
+    src: "/photos/team-theo.webp",
+    alt: "Theo, wholesale lead, in an apron in the roastery",
     name: "Theo",
     role: "Wholesale Lead",
     body: "Runs the café accounts and the barista training. The rep who actually answers.",
   },
   {
     slot: "Priya — café manager, portrait",
+    src: "/photos/team-priya.webp",
+    alt: "Priya, café manager, in an apron in the shop",
     name: "Priya",
     role: "Café Manager",
     body: "Runs the retail bar on Roberts Street and knows the regulars' orders by heart.",
@@ -82,7 +96,10 @@ const team = [
     <div class="wrap">
       <div class="spotlight-grid">
         <div class="spotlight-media">
-          <ImageSlot label="Founder portrait: Marcus at the roaster, apron, warm honest light" />
+          <ImageSlot
+            src="/photos/craft-founder.webp"
+            alt="Marcus working at the drum roaster in the warm light of the roastery"
+          />
           <span class="badge">Marcus, Head Roaster</span>
         </div>
         <div class="spotlight-body">
@@ -119,7 +136,7 @@ const team = [
           rows.map((r, i) => (
             <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
               <div class="fa-media">
-                <ImageSlot label={r.slot} />
+                <ImageSlot label={r.slot} src={r.src} alt={r.alt} />
               </div>
               <div class="fa-body">
                 <p class="eyebrow">{r.eyebrow}</p>
@@ -162,7 +179,7 @@ const team = [
         {
           team.map((m) => (
             <div class="team-card">
-              <ImageSlot label={m.slot} />
+              <ImageSlot label={m.slot} src={m.src} alt={m.alt} />
               <h3>{m.name}</h3>
               <p class="role">{m.role}</p>
               <p>{m.body}</p>

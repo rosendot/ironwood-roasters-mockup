@@ -1,0 +1,44 @@
+Source: Pexels (https://www.pexels.com/license/) — free commercial use, no attribution required.
+Listed for provenance only.
+
+hero-roaster.webp and the four cat-*.webp homepage images were added in
+commit bcf03dd without a credits file; their Pexels source IDs were not
+recorded. All are Pexels-licensed (free commercial use, no attribution
+required), so nothing is owed — the provenance line is simply missing.
+
+prod-ethiopia.webp	Ryutaro Tsukata (https://www.pexels.com/photo/small-deep-spoon-with-coffee-beans-5472417/)
+prod-colombia.webp	Denitsa Kireva (https://www.pexels.com/photo/brown-coffee-beans-on-silver-cup-on-brown-wooden-board-10476576/)
+prod-sumatra.webp	Andre Taissin (https://www.pexels.com/photo/brown-coffee-beans-6616443/)
+prod-house-blend.webp	Picas Joe (https://www.pexels.com/photo/a-coffee-beans-on-a-wooden-surface-11348016/)
+prod-sunrise.webp	Mike Cabugao (https://www.pexels.com/photo/brown-coffee-beans-on-a-cooking-spoon-5678430/)
+prod-decaf.webp	cottonbro studio (https://www.pexels.com/photo/brown-and-black-textile-with-silver-handle-4820677/)
+prod-v60.webp	Lübna  Abdullah (https://www.pexels.com/photo/paper-filter-in-coffee-cup-14298820/)
+prod-kettle.webp	rana aldemir (https://www.pexels.com/photo/stainless-steel-coffee-brewing-setup-close-up-32333621/)
+coffee-green-sacks.webp	Betül  Üstün (https://www.pexels.com/photo/organic-coffee-beans-display-in-storefront-37539933/)
+coffee-whole-vs-ground.webp	István Szitás (https://www.pexels.com/photo/coffee-grounds-3934369/)
+craft-sourcing.webp	aleinad _0222 (https://www.pexels.com/photo/bowl-of-a-fresh-coffee-fruits-13802103/)
+craft-roasting.webp	Clinton Weaver (https://www.pexels.com/photo/industrial-coffee-roaster-with-roasting-beans-36828481/)
+craft-cupping.webp	Lucas Andrade (https://www.pexels.com/photo/hand-of-man-pouring-coffee-20643648/)
+team-marcus.webp	AI25.Studio  Studio (https://www.pexels.com/photo/bearded-man-wearing-black-apron-7175972/)
+team-elena.webp	Tim Douglas (https://www.pexels.com/photo/cheerful-worker-with-tablet-at-cafe-counter-6205508/)
+team-theo.webp	Amine İspir (https://www.pexels.com/photo/barista-in-apron-at-cafe-16537980/)
+team-priya.webp	Mike Jones (https://www.pexels.com/photo/a-woman-in-brown-apron-holding-a-blue-ceramic-mug-9051687/)
+craft-founder.webp	AI25.Studio  Studio (https://www.pexels.com/photo/man-holding-a-notebook-7175985/)
+visit-roaster.webp	🇻🇳🇻🇳Nguyễn Tiến Thịnh 🇻🇳🇻🇳 (https://www.pexels.com/photo/close-up-of-industrial-coffee-roaster-machine-31228820/)
+visit-bar.webp	Gu Ko (https://www.pexels.com/photo/espresso-being-brewed-at-a-tokyo-coffee-shop-31872060/)
+visit-retail.webp	Betül  Üstün (https://www.pexels.com/photo/artisan-coffee-bags-display-on-rustic-shelves-37539928/)
+visit-latte.webp	Pixabay (https://www.pexels.com/photo/latte-drink-162886/)
+visit-cupping.webp	Lisa from Pexels (https://www.pexels.com/photo/coffee-cups-in-cafe-16180909/)
+visit-patio.webp	Mehmet Turgut  Kirkgoz (https://www.pexels.com/photo/plants-around-wooden-shutters-over-tables-and-chairs-18724201/)
+visit-green.webp	Yasin Onuş (https://www.pexels.com/photo/sack-of-freshly-roasted-coffee-beans-35994486/)
+visit-pourover.webp	Quang Nguyen Vinh (https://www.pexels.com/photo/woman-pouring-coffee-in-cup-2159062/)
+journal-pourover.webp	Michael Burrows (https://www.pexels.com/photo/faceless-barista-pouring-water-in-dripper-7125769/)
+journal-farm.webp	Irvin David (https://www.pexels.com/photo/close-up-of-hand-harvesting-ripe-coffee-cherries-36040333/)
+journal-roast-compare.webp	cottonbro studio (https://www.pexels.com/photo/silver-steel-tube-on-brown-textile-4820676/)
+journal-espresso-filter.webp	Engin Akyurt (https://www.pexels.com/photo/top-view-of-two-coffee-cups-on-sunlit-table-35835482/)
+journal-natural-process.webp	Speak Media Uganda (https://www.pexels.com/photo/fresh-coffee-cherries-drying-on-traditional-racks-37306877/)
+journal-storage.webp	Mathias Reding (https://www.pexels.com/photo/jars-of-spices-on-a-shelf-11911870/)
+wholesale-cafe.webp	Oktay Köseoğlu (https://www.pexels.com/photo/barista-preparing-coffee-in-cozy-cafe-setting-30218903/)
+wholesale-restaurant.webp	Nicola Barts (https://www.pexels.com/photo/coffee-brewing-in-a-pot-7937400/)
+wholesale-office.webp	Ron Lach (https://www.pexels.com/photo/women-in-hijabs-talking-in-canteen-10341447/)
+wholesale-hero.webp	Thanh  Luu (https://www.pexels.com/photo/flowers-in-vase-next-to-coffee-machines-11406429/)

@@ -11,41 +11,57 @@ const gallery = [
   {
     wide: true,
     slot: "The roaster: drum roaster mid-roast",
+    src: "/photos/visit-roaster.webp",
+    alt: "The drum roaster mid-roast, beans turning behind the glass",
     ph: "The roaster: drum roaster mid-roast, roaster at the controls",
     cap: "The roaster on Roberts Street — where every batch starts.",
   },
   {
     slot: "The bar: espresso machine, barista",
+    src: "/photos/visit-bar.webp",
+    alt: "Espresso pulling into a glass under the group head",
     ph: "The bar: espresso machine, barista pulling a shot",
     cap: "The bar at morning rush.",
   },
   {
     slot: "Retail shelf: rows of coffee bags",
+    src: "/photos/visit-retail.webp",
+    alt: "Shelves lined with rows of coffee bags along a dark wall",
     ph: "Retail shelf: rows of coffee bags and gear for sale",
     cap: "The retail shelf — bags roasted this week.",
   },
   {
     slot: "Latte art: rosetta in a ceramic cup",
+    src: "/photos/visit-latte.webp",
+    alt: "A rosetta poured into a warm ceramic cup",
     ph: "Latte art: rosetta poured into a ceramic cup, close-up",
     cap: "Latte art, most mornings.",
   },
   {
     slot: "Cupping table: rows of cups and spoons",
+    src: "/photos/visit-cupping.webp",
+    alt: "Cups and saucers set out across a table for a tasting",
     ph: "Cupping table: rows of cups and spoons, coffee slurping setup",
     cap: "The cupping table — every batch gets tasted here.",
   },
   {
     slot: "The patio: outdoor seating, plants",
+    src: "/photos/visit-patio.webp",
+    alt: "Outdoor seating along a wall trailing with greenery",
     ph: "The patio: outdoor seating, plants, string lights, warm afternoon",
     cap: "The patio out back.",
   },
   {
     slot: "Green beans: burlap sacks stacked",
+    src: "/photos/visit-green.webp",
+    alt: "Burlap sacks of green coffee open at the top",
     ph: "Green beans: burlap sacks of unroasted coffee stacked",
     cap: "Green coffee, waiting its turn.",
   },
   {
     slot: "Pour-over station: kettle and V60",
+    src: "/photos/visit-pourover.webp",
+    alt: "A barista pouring from a gooseneck kettle into a dripper",
     ph: "Pour-over station: gooseneck kettle, V60 on the counter",
     cap: "The pour-over station.",
   },
@@ -128,10 +144,12 @@ const hours = [
               class={g.wide ? "gal-item wide" : "gal-item"}
               data-gal-item
               data-gal-ph={g.ph}
+              data-gal-src={g.src}
+              data-gal-alt={g.alt}
               data-gal-cap={g.cap}
               aria-label={g.cap}
             >
-              <ImageSlot label={g.slot} />
+              <ImageSlot label={g.slot} src={g.src} alt={g.alt} />
             </button>
           ))
         }
@@ -203,8 +221,8 @@ const hours = [
     <button class="lb-close" aria-label="Close">×</button>
     <button class="lb-btn lb-prev" aria-label="Previous">‹</button>
     <div class="lb-stage">
-      <div class="img-slot">
-        <span class="slot-label" data-lb-label></span>
+      <div class="img-slot has-image">
+        <img data-lb-img src="" alt="" />
       </div>
       <div class="lb-cap" data-lb-cap></div>
     </div>

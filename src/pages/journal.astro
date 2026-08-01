@@ -7,6 +7,8 @@ import CtaBanner from "../components/CtaBanner.astro";
 const posts = [
   {
     slot: "Pour-over in progress: gooseneck kettle, V60, bloom",
+    src: "/photos/journal-pourover.webp",
+    alt: "A gooseneck kettle pouring over a dripper as the bed blooms",
     tag: "Brew Guides",
     date: "June 18, 2026",
     title: "How to dial in a pour-over at home",
@@ -15,6 +17,8 @@ const posts = [
   },
   {
     slot: "Colombia Huila farm: green mountainside, coffee cherries",
+    src: "/photos/journal-farm.webp",
+    alt: "A hand picking ripe red cherries from a coffee branch",
     tag: "Sourcing",
     date: "June 4, 2026",
     title: "Meet the farm behind our Colombia Huila",
@@ -23,6 +27,8 @@ const posts = [
   },
   {
     slot: "Roast comparison: light vs dark beans side by side",
+    src: "/photos/journal-roast-compare.webp",
+    alt: "Roasted beans heaped in the cooling tray of a roaster",
     tag: "Roasting",
     date: "May 21, 2026",
     title: "Why we roast lighter than most",
@@ -31,6 +37,8 @@ const posts = [
   },
   {
     slot: "Espresso shot pulling vs filter coffee brewing",
+    src: "/photos/journal-espresso-filter.webp",
+    alt: "Two baristas working the bar during service",
     tag: "Brew Guides",
     date: "May 7, 2026",
     title: "Espresso vs. filter: which beans for what",
@@ -39,6 +47,8 @@ const posts = [
   },
   {
     slot: "Natural process: coffee cherries drying on raised beds",
+    src: "/photos/journal-natural-process.webp",
+    alt: "Coffee cherries spread out drying on raised beds",
     tag: "Sourcing",
     date: "April 23, 2026",
     title: "What 'natural process' actually means",
@@ -47,6 +57,8 @@ const posts = [
   },
   {
     slot: "Coffee storage: sealed bag and airtight jar on a shelf",
+    src: "/photos/journal-storage.webp",
+    alt: "Glass jars of coffee lined up on a shelf",
     tag: "Brew Guides",
     date: "April 9, 2026",
     title: "Storing beans so they stay fresh",
@@ -72,7 +84,7 @@ const posts = [
           posts.map((p) => (
             <a class="blog-card" href="#">
               <div class="blog-media">
-                <ImageSlot label={p.slot} />
+                <ImageSlot label={p.slot} src={p.src} alt={p.alt} />
                 <span class="blog-tag">{p.tag}</span>
               </div>
               <div class="blog-body">

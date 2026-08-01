@@ -131,21 +131,24 @@ const {
   }
 
   /* --- Lightbox gallery ---
-     With no real photos yet the overlay shows the caption for the clicked
-     thumbnail. Once ImageSlot gets a `src`, swap in the matching <img>. */
+     Each thumbnail carries its own src/alt, so the overlay shows the full
+     photo for whichever tile was tapped. */
   const lb = document.getElementById("lightbox");
   const galItems = Array.from(
     document.querySelectorAll<HTMLElement>("[data-gal-item]"),
   );
   if (lb && galItems.length) {
-    const lbLabel = lb.querySelector("[data-lb-label]");
+    const lbImg = lb.querySelector<HTMLImageElement>("[data-lb-img]");
     const lbCap = lb.querySelector("[data-lb-cap]");
     let current = 0;
 
     const open = (i: number) => {
       current = (i + galItems.length) % galItems.length;
       const item = galItems[current];
-      if (lbLabel) lbLabel.textContent = item.getAttribute("data-gal-ph") || "";
+      if (lbImg) {
+        lbImg.src = item.getAttribute("data-gal-src") || "";
+        lbImg.alt = item.getAttribute("data-gal-alt") || "";
+      }
       if (lbCap) lbCap.textContent = item.getAttribute("data-gal-cap") || "";
       lb.classList.add("open");
       document.body.style.overflow = "hidden";

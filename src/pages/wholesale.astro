@@ -22,18 +22,24 @@ const pillars = [
 const programs = [
   {
     slot: "Café program: espresso machine + bags of beans on a back bar",
+    src: "/photos/wholesale-cafe.webp",
+    alt: "A barista working the espresso bar with bags of beans behind",
     icon: "01",
     title: "Café Program",
     body: "Weekly delivery of your house espresso and filter, plus barista training and dial-in support. Built for high-volume bars.",
   },
   {
     slot: "Restaurant program: drip coffee at a dining table setting",
+    src: "/photos/wholesale-restaurant.webp",
+    alt: "Coffee served on a tray at a set dining table",
     icon: "02",
     title: "Restaurant Program",
     body: "Drip and espresso in smaller volumes, delivered on your schedule. The right cup to end a meal, without the waste.",
   },
   {
     slot: "Office coffee: bags and a brewer in a bright office kitchen",
+    src: "/photos/wholesale-office.webp",
+    alt: "A bright office kitchen with a brewer on the counter",
     icon: "03",
     title: "Office Coffee",
     body: "Bags plus the equipment to brew them well, restocked before you run out. Good coffee your team will actually drink.",
@@ -102,7 +108,10 @@ const marquee = [...partners, ...partners];
       </div>
     </div>
     <div class="hs-media">
-      <ImageSlot label="Café bar mid-service: barista pulling espresso, steam, morning light" />
+      <ImageSlot
+        src="/photos/wholesale-hero.webp"
+        alt="The café bar mid-service, espresso machines and morning light"
+      />
     </div>
   </section>
 
@@ -134,7 +143,7 @@ const marquee = [...partners, ...partners];
         {
           programs.map((p) => (
             <div class="sc-card">
-              <ImageSlot label={p.slot} />
+              <ImageSlot label={p.slot} src={p.src} alt={p.alt} />
               <div class="sc-body">
                 <div class="sc-icon">{p.icon}</div>
                 <h3>{p.title}</h3>

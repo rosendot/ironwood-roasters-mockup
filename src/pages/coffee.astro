@@ -16,6 +16,8 @@ const products = [
   {
     cat: "single",
     slot: "Ethiopia Yirgacheffe bag — kraft bag, whole beans beside it",
+    src: "/photos/prod-ethiopia.webp",
+    alt: "A wooden scoop of light-roast whole beans on a warm table",
     label: "Single-Origin",
     name: "Ethiopia Yirgacheffe",
     price: "$22",
@@ -25,6 +27,8 @@ const products = [
   {
     cat: "single",
     slot: "Colombia Huila bag — kraft bag, whole beans beside it",
+    src: "/photos/prod-colombia.webp",
+    alt: "Roasted beans in a copper measure on a rustic wooden round",
     label: "Single-Origin",
     name: "Colombia Huila",
     price: "$19",
@@ -34,6 +38,8 @@ const products = [
   {
     cat: "single",
     slot: "Sumatra Mandheling bag — dark beans, kraft bag",
+    src: "/photos/prod-sumatra.webp",
+    alt: "Dark whole beans spread beside a wooden grinder",
     label: "Single-Origin",
     name: "Sumatra Mandheling",
     price: "$20",
@@ -43,6 +49,8 @@ const products = [
   {
     cat: "blends",
     slot: "Ironwood House Blend bag — signature label",
+    src: "/photos/prod-house-blend.webp",
+    alt: "A scoop of medium-roast beans spilling onto a plain surface",
     label: "Blend",
     name: "Ironwood House Blend",
     price: "$17",
@@ -52,6 +60,8 @@ const products = [
   {
     cat: "blends",
     slot: "Sunrise Breakfast Blend bag",
+    src: "/photos/prod-sunrise.webp",
+    alt: "A metal scoop lifted from a bed of freshly roasted beans",
     label: "Blend",
     name: "Sunrise Breakfast Blend",
     price: "$17",
@@ -61,6 +71,8 @@ const products = [
   {
     cat: "decaf",
     slot: "Midnight Decaf bag — water-process label",
+    src: "/photos/prod-decaf.webp",
+    alt: "A deep bed of dark roasted beans, close and low-lit",
     label: "Decaf · Water process",
     name: "Midnight Decaf",
     price: "$18",
@@ -70,6 +82,8 @@ const products = [
   {
     cat: "gear",
     slot: "V60 dripper — ceramic pour-over cone on a bench",
+    src: "/photos/prod-v60.webp",
+    alt: "A ceramic pour-over cone and glass carafe on a bright bench",
     label: "Gear",
     name: "V60 Dripper",
     price: "$28",
@@ -79,6 +93,8 @@ const products = [
   {
     cat: "gear",
     slot: "Gooseneck kettle — matte black, thin spout",
+    src: "/photos/prod-kettle.webp",
+    alt: "A row of matte gooseneck kettles lined up on a counter",
     label: "Gear",
     name: "Gooseneck Kettle",
     price: "$65",
@@ -90,6 +106,8 @@ const products = [
 const rows = [
   {
     slot: "Green (unroasted) coffee beans in burlap sacks, farm crate",
+    src: "/photos/coffee-green-sacks.webp",
+    alt: "Open burlap sacks of pale green unroasted coffee beans",
     eyebrow: "New harvest, every season",
     heading: "The single-origin lineup is always moving.",
     paras: [
@@ -99,6 +117,8 @@ const rows = [
   },
   {
     slot: "Whole beans vs ground coffee side by side; a burr grinder",
+    src: "/photos/coffee-whole-vs-ground.webp",
+    alt: "A portafilter basket of finely ground coffee seen from above",
     eyebrow: "Grind to match your brew",
     heading: "Whole bean, or ground for how you make it.",
     paras: [
@@ -136,7 +156,7 @@ const rows = [
         {
           products.map((p) => (
             <div class="mg-card" data-cat={p.cat}>
-              <ImageSlot label={p.slot} />
+              <ImageSlot label={p.slot} src={p.src} alt={p.alt} />
               <div class="mg-body">
                 <p class="mg-cat">{p.label}</p>
                 <div class="mg-head">
@@ -161,7 +181,7 @@ const rows = [
           rows.map((r, i) => (
             <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
               <div class="fa-media">
-                <ImageSlot label={r.slot} />
+                <ImageSlot label={r.slot} src={r.src} alt={r.alt} />
               </div>
               <div class="fa-body">
                 <p class="eyebrow">{r.eyebrow}</p>
