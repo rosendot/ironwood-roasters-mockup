@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import ImageSlot from "../components/ImageSlot.astro";
 import CrumbBar from "../components/CrumbBar.astro";
+import Icon from "../components/Icon.astro";
 
 const MAP_Q = "14+Roberts+St,+Asheville,+NC+28801";
 const directions = `https://www.google.com/maps/dir/?api=1&destination=${MAP_Q}`;
@@ -146,10 +147,10 @@ const hours = [
         <h2>Open every day.</h2>
       </div>
       <div class="hours-card" data-hours>
-        <div class="hours-status">
-          <span class="dot"></span>
-          <b data-hours-label>Open now</b>
-          <span data-hours-sub>Today until 5:00pm</span>
+        <div class="hours-head">
+          <span class="hh-title">Café</span>
+          <span class="hh-pill" data-hours-label>Open now</span>
+          <span class="hh-sub" data-hours-sub>Today until 5:00pm</span>
         </div>
         <div class="hours-rows">
           {
@@ -169,9 +170,18 @@ const hours = [
   <section class="contact-bar-sec">
     <div class="contact-bar">
       <span class="cb-label">Quick actions</span>
-      <a class="btn" href="tel:+18285550164">Call</a>
-      <a class="btn ghost" href={directions} target="_blank" rel="noopener">Directions</a>
-      <a class="btn ghost" href="mailto:hello@ironwoodroasters.com">Email</a>
+      <a class="btn" href="tel:+18285550164">
+        <Icon name="phone" />
+        Call
+      </a>
+      <a class="btn ghost" href={directions} target="_blank" rel="noopener">
+        <Icon name="directions" />
+        Directions
+      </a>
+      <a class="btn ghost" href="mailto:hello@ironwoodroasters.com">
+        <Icon name="mail" />
+        Email
+      </a>
     </div>
   </section>
 

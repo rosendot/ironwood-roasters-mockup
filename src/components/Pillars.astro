@@ -1,7 +1,6 @@
 ---
-/** Three roman-numeral pillars. Home and Wholesale each pass their own set. */
+/** Three feature pillars. Home and Wholesale each pass their own set. */
 interface Pillar {
-  num: string;
   title: string;
   body: string;
 }
@@ -23,7 +22,6 @@ const { eyebrow, heading, items } = Astro.props;
       {
         items.map((p) => (
           <div class="pillar">
-            <div class="num">{p.num}</div>
             <div class="rule" />
             <h3>{p.title}</h3>
             <p>{p.body}</p>
