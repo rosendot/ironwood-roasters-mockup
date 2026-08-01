@@ -27,6 +27,19 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content={new URL("/og-image.png", Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL("/og-image.png", Astro.site)} />
+
+    <!-- Brand icons — generated from the emblem by .brand/build-assets.mjs.
+         Brown-on-cream marks for the browser tab; WebP on the web, PNG for
+         Apple touch. -->
+    <link rel="icon" type="image/webp" sizes="32x32" href="/favicon-32.webp" />
+    <link rel="icon" type="image/webp" sizes="192x192" href="/icon-192.webp" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
     <meta name="generator" content={Astro.generator} />
   </head>
   <body>
@@ -163,7 +176,7 @@ const {
     });
   }
 
-  /* --- Live hours status: Mon–Sun 7am–5pm --- */
+  /* --- Hours card: today's row + status pill (café is 7am–5pm daily) --- */
   const hoursCard = document.querySelector("[data-hours]");
   if (hoursCard) {
     const now = new Date();
@@ -171,10 +184,17 @@ const {
     const hour = now.getHours() + now.getMinutes() / 60;
     const isOpen = hour >= 7 && hour < 17;
 
-    hoursCard.querySelector(".dot")?.classList.toggle("closed", !isOpen);
+    hoursCard
+      .querySelector(`.hours-row[data-day="${day}"]`)
+      ?.classList.add("today");
+
+    // The pill carries the state as text + fill; there's no status dot.
     const label = hoursCard.querySelector("[data-hours-label]");
     const sub = hoursCard.querySelector("[data-hours-sub]");
-    if (label) label.textContent = isOpen ? "Open now" : "Closed now";
+    if (label) {
+      label.textContent = isOpen ? "Open now" : "Closed";
+      label.classList.toggle("closed", !isOpen);
+    }
     if (sub) {
       sub.textContent = isOpen
         ? "Today until 5:00pm"
@@ -182,9 +202,6 @@ const {
           ? "Opens today at 7:00am"
           : "Opens tomorrow at 7:00am";
     }
-    hoursCard
-      .querySelector(`.hours-row[data-day="${day}"]`)
-      ?.classList.add("today");
   }
 
   /* --- Prevent dead-link jumps on visual-only forms --- */
