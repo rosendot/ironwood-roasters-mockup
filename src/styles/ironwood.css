@@ -167,7 +167,13 @@ a { color: inherit; }
 
 /* ===== HOME HERO (looping video background) ===== */
 .hero-video {
-  position: relative; min-height: 88vh;
+  position: relative;
+  /* Full-viewport hero — studio convention. The announce bar and header sit
+     above the hero rather than over it, so their heights come off the top:
+     bar + header + hero fill the viewport exactly. svh keeps iOS's collapsing
+     address bar from cropping it; the vh line is the older-browser fallback. */
+  min-height: calc(100vh - var(--header-h) - var(--anno-h));
+  min-height: calc(100svh - var(--header-h) - var(--anno-h));
   display: flex; align-items: flex-end;
   padding: var(--space-16) var(--space-6);
   overflow: hidden; background: var(--color-dark);
