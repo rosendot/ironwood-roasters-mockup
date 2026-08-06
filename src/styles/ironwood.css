@@ -888,27 +888,66 @@ a { color: inherit; }
      form even when stacked. */
   .cs-grid { gap: var(--space-8); }
 
-  /* ===== HOME + WHOLESALE: CARD GRIDS =====
-     Same shape as the coffee catalogue. The home menu cards (4 x 441px) and
-     the wholesale service cards (3 x 525px) are photo-led cards people scan
-     rather than read end to end, so they pair up like the product grid. */
-  .mc-grid, .sc-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
-  .mc-card, .sc-card { padding: var(--space-4); }
-  .mc-card h3, .sc-card h3 { font-size: var(--text-lg); }
-  .mc-card p, .sc-card p { font-size: var(--text-sm); line-height: var(--leading-relaxed); }
+  /* ===== WHOLESALE: SERVICE CARDS =====
+     One per row. Pairing these was tried and reverted: three cards two-up
+     leaves an orphan on its own row, the 60-word body wrapped to one word per
+     line in a 145px column, and the photo collapsed to 83px. Card height went
+     UP, to 692px.
+
+     Only the /coffee/ product grid pairs. Those cards are a photo, a name, a
+     price and four words — this one is a photo and a paragraph. Card count
+     and copy length decide it, not the fact that both are "cards". */
+  .sc-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+  /* Pad .sc-body, not .sc-card. The card itself has no padding at base — the
+     body inside it does — so padding the card stacked on top of that and left
+     the copy 142px wide in a 232px card (19 characters per line at 320px). */
+  .sc-body { padding: var(--space-5); }
+  .sc-card p { line-height: var(--leading-relaxed); }
+
+  /* ===== HOME: "OUR COFFEE" CATEGORY CARDS =====
+     These stay ONE per row. They are overlay cards — .mc-name is 40px display
+     type painted on the photo with a kicker above it — and two-up destroyed
+     them: the titles overflowed their images ("Single-Origin" rendered as
+     "Origi"), "Start a subscription" ran past the card edge, the photos
+     collapsed to 69px letterboxes, and the body text wrapped to one word per
+     line in a 63px column.
+
+     Overlay type needs width. The /coffee/ product cards pair fine because
+     their text sits below the photo instead of on it. Same-looking cards, a
+     different constraint. */
+  .mc-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+  /* .mc-name is absolutely positioned with a left offset and no right bound,
+     so it never wrapped — it just ran off the image. Give it a right edge so
+     a long name breaks onto a second line instead. Selector has to match the
+     base rule's 0-2-0 to win. */
+  .mc-media .mc-name { right: var(--space-6); font-size: var(--text-3xl); }
+  .mc-body { padding: var(--space-5) var(--space-5) var(--space-6); }
+  .mc-body p { font-size: var(--text-base); margin-bottom: var(--space-4); }
 
   /* ===== COFFEE: PRODUCT GRID =====
      Eight bags at 538px each ran 4281px — half the page, and the single
      biggest block on the site. Two-up halves it. These are square product
      shots of a bag of beans, so they still read at ~145px; this is a
      catalogue you scan, not a hero you study. */
-  .mg-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+  .mg-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
   .mg-body { padding: var(--space-4); }
   .mg-card h3 { font-size: var(--text-lg); }
-  .mg-notes { font-size: var(--text-sm); line-height: var(--leading-relaxed); }
   /* Name and price sit on one row; at 145px wide that squeezes both. Stack
      them so neither wraps mid-word. */
   .mg-head { flex-direction: column; align-items: flex-start; gap: 2px; }
+
+  /* The tasting note comes off two-up. Measured, a 145px column gives it 16
+     characters per line over 7 lines — readable prose wants 45-75, so it was
+     a ragged column of single words. Three options were measured:
+
+       two-up with notes    1953px   16 CPL  (unreadable)
+       one-up with notes    4202px   39 CPL  (readable, 2.1x the height)
+       two-up, notes hidden 1309px    —      (chosen)
+
+     Every card keeps its photo, category, name, price and Add to bag — which
+     is what you scan a shop grid for. The full note is one tap away on the
+     product page, and it is still in the DOM for screen readers and search. */
+  .mg-notes { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .sc-card h3, .mc-card h3 { font-size: var(--text-xl); margin-bottom: var(--space-2); }
   /* Testimonial quotes are set above body size in the display face; one step
      down still reads as a pull-quote. */
