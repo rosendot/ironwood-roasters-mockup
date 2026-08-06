@@ -21,7 +21,7 @@ const isActive = (href: string) =>
       <img class="mark" src="/emblem.png" alt="" width="40" height="40" aria-hidden="true" />
       <span class="name">Ironwood Roasters<small>Asheville · NC</small></span>
     </a>
-    <nav class="nav" id="nav">
+    <nav class="nav" id="nav" aria-label="Primary">
       {
         links.map((l) => (
           <a class={isActive(l.href) ? "lnk active" : "lnk"} href={l.href}>
@@ -31,8 +31,8 @@ const isActive = (href: string) =>
       }
       <a class="btn" href="/coffee/">Shop Coffee</a>
     </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
   </div>
 </header>

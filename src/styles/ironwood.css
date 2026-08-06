@@ -345,7 +345,12 @@ a { color: inherit; }
 /* ===== LOGO MARQUEE (scrolling) ===== */
 .logo-marquee { background: var(--color-white); padding: var(--space-12) 0; overflow: hidden; }
 .lm-eyebrow { text-align: center; font-size: var(--text-sm); text-transform: uppercase; letter-spacing: var(--tracking-wide); font-weight: 700; color: var(--color-text-light); margin: 0 0 var(--space-8); }
-.lm-track-mask { position: relative; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+/* overflow:hidden as well as the mask. The mask only paints — it does not
+   clip layout, so the 3400px track still counted toward the page's minimum
+   width and forced the whole layout to 417px on a 390px phone (the browser
+   then zoomed out to fit, a WCAG 1.4.10 reflow failure). The section above
+   has overflow:hidden but the track escapes this intermediate wrapper first. */
+.lm-track-mask { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .lm-track { display: flex; gap: var(--space-12); width: max-content; animation: lm-scroll 34s linear infinite; }
 .logo-marquee:hover .lm-track { animation-play-state: paused; }
 .lm-item {
@@ -675,8 +680,29 @@ a { color: inherit; }
   .feature-grid, .team-grid, .sc-grid, .tc-grid, .mg-grid, .lw-grid, .gal-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); gap: var(--space-10) var(--space-6); }
   .steps::before { display: none; }
-  .mc-grid, .spotlight-grid, .fa-row, .cs-grid, .mapembed-grid, .hero-split, .faq2-grid { grid-template-columns: 1fr; }
-  .fa-row.flip .fa-media { order: 0; }
+  /* minmax(0,1fr), not 1fr. A bare `1fr` is minmax(auto,1fr), and that `auto`
+     floor is the item's MIN-CONTENT width — so a grid child that cannot wrap
+     narrower (the map card, the wholesale form) held the whole page open:
+     /visit/ would not lay out below 458px and /wholesale/ below 417px, and
+     the browser zoomed the page out to fit. WCAG 1.4.10 reflow. */
+  .mc-grid, .spotlight-grid, .cs-grid, .mapembed-grid, .hero-split, .faq2-grid { grid-template-columns: minmax(0, 1fr); }
+
+  /* Long unbreakable strings set a min-content floor of their own, and that
+     floor propagates all the way up to the page. "hello@ironwoodroasters.com"
+     is 228px and held /visit/ open at 417px on a 390px screen. Let addresses,
+     emails and URLs wrap mid-word rather than widening the layout. */
+  .contact-row .v, .contact-card .v, .foot-col p, .cs-form .v { overflow-wrap: anywhere; }
+  /* .fa-row stays side by side through the tablet range. Stacking it here
+     makes the 4/3 photo full-width, which costs more height on a tablet than
+     the phone layout does. It stacks at 720px instead (see below). */
+  .fa-row { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+
+  /* ===== FORMS — iOS ZOOM =====
+     --text-base is 0.95rem = 15.2px, and iOS Safari zooms the whole page when
+     you focus any field under 16px. This lives in the 980px block, not the
+     720px one: an iPad is a touch device and zooms identically. */
+  .field input, .field select, .field textarea,
+  .news-form input { font-size: 16px; }
   .faq2-answer { position: static; }
   .spotlight-media { aspect-ratio: 16/10; }
   .stat-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-10); }
@@ -686,22 +712,217 @@ a { color: inherit; }
   .hero-split .hs-media { min-height: 340px; }
   .gal-item.wide { grid-column: span 2; }
 }
-@media (max-width: 720px) {
+/* ===== HEADER / DRAWER =====
+   The drawer has to appear at 900px, not 720px. Six nav links plus the 156px
+   CTA measure 649px, so from 721px to ~880px the nav overflowed the header
+   and gave the whole page a horizontal scrollbar (docW 819 on a 721px
+   viewport). Unlike the other mockups this header is position:sticky, not
+   fixed, so the overflow is real rather than silently clipped.
+
+   Only the header lives at this width. Layout rules stay at 720px, where a
+   phone actually needs them. ============================================== */
+@media (max-width: 900px) {
+  /* The bar. 74px is a desktop figure and the brand/nav/burger row could not
+     fit a 320px screen — .site-header's scrollWidth was 373px against a 320px
+     box, so the browser zoomed the whole page out to fit and the layout never
+     rendered below 373px. That is a WCAG 1.4.10 reflow failure, and it is why
+     nothing reported an "overflow": the page was scaled, not scrolled. */
+  :root { --header-h: 60px; }
+
   .nav .lnk { display: none; }
   .nav-toggle { display: block; }
-  .nav.open { position: absolute; top: var(--header-h); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: var(--color-dark); padding: var(--space-4) var(--space-6) var(--space-6); box-shadow: var(--shadow-lg); border-bottom: 1px solid rgba(255,255,255,.1); }
+
+  /* Hide the header CTA below the drawer breakpoint. At 156px it is most of
+     what made the header row too wide to fit. The same CTA is the last item
+     in the drawer. */
+  .nav > .btn { display: none; }
+
+  /* Brand scales to match the shorter bar. */
+  .brand { gap: var(--space-2); }
+  .brand .mark { width: 30px; height: 30px; }
+  .brand .name { font-size: var(--text-lg); }
+  .brand .name small { font-size: 8.5px; letter-spacing: 1.5px; margin-top: 2px; }
+
+  /* Burger was 40x42 — under the 44px WCAG 2.5.8 minimum on both axes. */
+  .nav-toggle { padding: 10px; width: 44px; height: 46px; }
+  .site-header .wrap { padding-right: var(--space-4); }
+
+  /* ===== DRAWER =====
+     A dropdown sized to its contents, anchored under the bar. Kept absolute
+     (this header is sticky, so the drawer scrolls with it) but capped so it
+     can never run past the viewport on a landscape phone. */
+  .nav.open {
+    position: absolute; top: var(--header-h); left: 0; right: 0;
+    z-index: 40;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--color-dark);
+    padding: var(--space-4) var(--space-6) var(--space-6);
+    box-shadow: var(--shadow-lg);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    max-height: calc(100svh - var(--header-h));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
   .nav.open .lnk { display: block; padding: var(--space-4) 0; border-bottom: 1px solid rgba(255,255,255,.1); color: rgba(250,242,233,.82); }
   .nav.open .lnk.active { color: var(--color-cream); }
-  .nav.open .btn { margin-top: var(--space-4); justify-content: center; }
+  /* Re-show the CTA inside the drawer — `.nav > .btn` above hid it in the bar
+     and this is the same element. */
+  .nav.open > .btn { display: flex; margin-top: var(--space-4); justify-content: center; }
+
+  /* ===== TOUCH TARGETS =====
+     Every .btn renders 42px tall — 2px under the WCAG 2.5.8 minimum, from
+     space-3 padding against a 13.6px uppercase label. Nudge the vertical
+     padding rather than the font size, so the button proportions hold.
+     Same for the smaller pill controls: the menu-grid filter tabs and the
+     journal category buttons. */
+  .btn { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+  /* .contact-bar .btn is 0-2-0 and overrides the line above, leaving those
+     three buttons at 34px — the most tappable thing on the Visit page. */
+  .contact-bar .btn { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+  /* Footer social buttons are 40x40 — icon-only circles, so grow the circle
+     rather than padding it. Lives here rather than in the 720px block: the
+     footer is on every page at every touch width. */
+  .foot-social a { width: 44px; height: 44px; }
+  /* The coffee page's filter tabs are 42px for the same reason. */
+  .mg-tab { min-height: 44px; }
+  /* "Add to bag" is 115x15 — the primary purchase control on the coffee page
+     and the smallest target on the site. It sits in a card footer, so it is
+     a standalone control, not the inline-prose case WCAG 2.5.8 exempts. Pad
+     it and pull the margin back so the card height does not change. */
+  /* Only the bottom margin is pulled back. The base rule sets margin-top:auto
+     to push the button to the card foot, and a shorthand `margin` here would
+     wipe that out and float the control up into the copy. */
+  .mg-add { padding: 15px 0; margin-bottom: -15px; min-height: 44px; }
+  /* The footer newsletter sits outside .field, so it misses the form rules
+     in the 980px block: its button is 35px and its input 15.2px. */
+  .news-form button { min-height: 44px; }
+
+  /* The announcement bar's dismiss button is 26x26. It is absolutely
+     positioned inside the bar, so growing the tap area costs no layout
+     height — keep the visible circle and pad the hit box out to 44px. */
+  .announce .anno-close {
+    width: 44px; height: 44px;
+    background-clip: content-box;
+    padding: 9px;
+  }
+
+  /* Scrim over the page behind the drawer, and the tap target that closes it.
+     The header is sticky and its own stacking context, so the scrim hangs off
+     the header rather than the drawer. */
+  .site-header:has(.nav.open)::after {
+    content: "";
+    position: fixed; inset: var(--header-h) 0 0;
+    z-index: 30;
+    background: rgba(31, 19, 11, .5);
+    pointer-events: none;
+  }
+}
+@media (max-width: 720px) {
   .feature-grid, .team-grid, .sc-grid, .tc-grid, .mg-grid, .lw-grid, .blog-grid, .form-grid, .steps { grid-template-columns: 1fr; }
   .gal-grid { grid-template-columns: repeat(2, 1fr); }
   .gal-item.wide { grid-column: span 2; }
   .stat-grid { grid-template-columns: 1fr; gap: var(--space-8); }
   .stat:not(:last-child)::after { display: none; }
-  .footer-top { grid-template-columns: 1fr; gap: var(--space-8); }
   .section { padding: var(--space-12) var(--space-5); }
   .res-form { padding: var(--space-6); }
   .hero-video { min-height: 84vh; }
+
+  /* ===== FOOTER =====
+     1212px on every one of six pages, against 440px on desktop. Four columns
+     stacked single-file. The two link lists pair up; the brand blurb and the
+     address block stay full width because they carry prose and an address,
+     which go ragged in a half-width column. */
+  .site-footer { padding: var(--space-10) var(--space-6) var(--space-10); }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8) var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+  .footer-top > div:first-child,
+  .footer-top > div:last-child { grid-column: 1 / -1; }
+
+  /* Footer links are 15px tall in a dense list. Pad rather than resize, so
+     the type scale is untouched. */
+  .foot-col ul { gap: 0; }
+  .foot-col ul a { display: block; padding: var(--space-2) 0; }
+  .foot-col h4 { margin-bottom: var(--space-3); }
+  .foot-blurb { margin: var(--space-4) 0 var(--space-5); }
+  .foot-bar { padding-top: var(--space-5); gap: var(--space-1); justify-content: flex-start; }
+
+
+  /* ===== STATS =====
+     Four figures with short labels stacked single-file. Two-up is comfortable
+     below 320px. Dividers stay off — they are drawn between columns for the
+     4-up desktop row and read as stray marks once the grid wraps. */
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-6) var(--space-4); }
+  .stat .num { font-size: clamp(2rem, 9vw, 2.8rem); }
+
+  /* ===== TEAM / BLOG =====
+     Portrait and card grids halve two-up and the faces still read at ~145px. */
+  .team-grid, .blog-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+
+  /* ===== CARD SECTIONS =====
+     space-8 padding is 32px of chrome per card before any text, and these
+     stack three and four deep. */
+  .tc-card { padding: var(--space-5); }
+  .tc-grid { gap: var(--space-4); }
+
+  /* ===== LOGO WALL =====
+     A grid of partner names — the whole point is scanning them at a glance,
+     and one per row is the worst way to do that. Two-up, not three: these are
+     text wordmarks ("Blue Ridge Coffee"), not image marks, and at a third of
+     a 390px screen the name plus its padding could not fit — it set a 438px
+     floor and zoomed the whole page out. minmax(0,1fr) so the text wraps
+     instead of holding the column open. */
+  .lw-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .lw-logo { padding: var(--space-4); }
+
+  /* ===== PROCESS STEPS + FEATURE PILLARS =====
+     Both stack single-file with a 40px gap between items that are already
+     just a heading and two lines. Halve the gap and relax the leading. */
+  .steps { gap: var(--space-6); }
+  .feature-grid { gap: var(--space-6); }
+  .feature p, .step p { line-height: var(--leading-relaxed); }
+
+  /* The wholesale contact split keeps a 48px gap between the copy and the
+     form even when stacked. */
+  .cs-grid { gap: var(--space-8); }
+
+  /* ===== HOME + WHOLESALE: CARD GRIDS =====
+     Same shape as the coffee catalogue. The home menu cards (4 x 441px) and
+     the wholesale service cards (3 x 525px) are photo-led cards people scan
+     rather than read end to end, so they pair up like the product grid. */
+  .mc-grid, .sc-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+  .mc-card, .sc-card { padding: var(--space-4); }
+  .mc-card h3, .sc-card h3 { font-size: var(--text-lg); }
+  .mc-card p, .sc-card p { font-size: var(--text-sm); line-height: var(--leading-relaxed); }
+
+  /* ===== COFFEE: PRODUCT GRID =====
+     Eight bags at 538px each ran 4281px — half the page, and the single
+     biggest block on the site. Two-up halves it. These are square product
+     shots of a bag of beans, so they still read at ~145px; this is a
+     catalogue you scan, not a hero you study. */
+  .mg-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+  .mg-body { padding: var(--space-4); }
+  .mg-card h3 { font-size: var(--text-lg); }
+  .mg-notes { font-size: var(--text-sm); line-height: var(--leading-relaxed); }
+  /* Name and price sit on one row; at 145px wide that squeezes both. Stack
+     them so neither wraps mid-word. */
+  .mg-head { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .sc-card h3, .mc-card h3 { font-size: var(--text-xl); margin-bottom: var(--space-2); }
+  /* Testimonial quotes are set above body size in the display face; one step
+     down still reads as a pull-quote. */
+  .tc-card blockquote { font-size: var(--text-lg); margin-bottom: var(--space-4); }
+
+  /* ===== ALTERNATING FEATURE ROWS =====
+     This is where the row finally stacks — it stays two-up through tablet
+     (see the 980px block). Once stacked the photo spans the full width, so a
+     4/3 crop eats most of the row; 16/9 reads better on these interiors. */
+  .fa-row { grid-template-columns: 1fr; gap: var(--space-5); }
+  .fa-row.flip .fa-media { order: 0; }
+  .fa-media { aspect-ratio: 16 / 9; }
+  .fa-rows { gap: var(--space-10); }
+  .fa-body p { line-height: var(--leading-relaxed); }
   .contact-bar { flex-direction: column; align-items: stretch; border-radius: var(--radius-xl); }
   .contact-bar .btn { justify-content: center; }
 }
